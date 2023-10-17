@@ -1,15 +1,15 @@
 const express = require('express') //commonJS Import older version
 // import express from 'express'//ES Module Import add "type": "module" in package.json
+const cors=require('cors')
 const dotenv=require('dotenv')
 const AppRoutes = require('./src/routes')
 
 dotenv.config()
-
 const PORT=process.env.PORT
-
 const app = express()
-app.use(express.json())
 
+app.use(cors())
+app.use(express.json())
 app.use('/',AppRoutes)
 
 
