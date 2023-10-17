@@ -1,4 +1,5 @@
 const userModel = require('../models/User')
+// const Auth=require('../common/auth.js')
 const getUsers = async(req,res)=>{
    try {
         let users = await userModel.find()
@@ -34,6 +35,7 @@ const create = async(req,res)=>{
     try {
         let user = await userModel.findOne({email:req.body.email})
         if(!user){
+            // req.body.password=await Auth.hashPassword(req.body.password)
             await userModel.create(req.body)
             res.status(201).send({
                 message:"User Created Successfully"
@@ -50,6 +52,37 @@ const create = async(req,res)=>{
         })
     }
 }
+
+// const login=async(req,res)=>{
+//     try{
+//         let user=await userModel.findOne({email:req.body.email})
+//       if(user)
+//       {
+//         let hashCompare=await Auth.hashCompare(req.body.email)
+//         if(hashCompare){
+//             let token=await Auth.createToken({
+//                 firstName:user.firstName,
+//                 lastName:user.lastName,
+//                 email:user.email,
+//                 role:user.role
+//             })
+
+//             res.status(200).send({
+//                 message:"Login successfull",
+//                 token
+//             })
+//         }
+//         else{
+//             res.status(400).send({
+//                 message:"Invalid Password"
+//             })
+//         }
+//     }}
+//     else
+//     catch{
+
+//     }
+// }
 
 const editUserById = async(req,res)=>{
     try {
